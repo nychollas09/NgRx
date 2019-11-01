@@ -1,5 +1,4 @@
 import * as fromPessoaActions from './pessoa.action';
-import { State } from '@ngrx/store';
 import { Pessoa } from 'src/app/shared/domain/pessoa';
 
 const PESSOA_ACTION_TYPES = fromPessoaActions.PessoaActionTypes;
@@ -13,14 +12,19 @@ export const initialState: Pessoa[] = [];
 export function reducer(state: Pessoa[] = initialState, action: fromPessoaActions.PessoaActions) {
   switch (action.type) {
     case PESSOA_ALL:
-      return State;
+      return state;
     case PESSOA_NEW:
-      return State;
+      return state.concat([action.payload.pessoa]);
     case PESSOA_UPDATE:
-      return State;
+      const pessoas: Pessoa[] = state.slice();
+      const pessoaIndex: number = pessoas.findIndex((pessoa: Pessoa) => pessoa.codigo === action.payload.pessoa.codigo);
+      if (pessoaIndex >= 0) {
+        pessoas[pessoaIndex] = action.payload.pessoa;
+      }
+      return pessoas;
     case PESSOA_DELETE:
-      return State;
+      return state.filter(pessoa => pessoa.codigo !== action.payload.codigo);
     default:
-      return State;
+      return state;
   }
 }

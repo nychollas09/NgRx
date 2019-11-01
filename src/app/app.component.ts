@@ -12,7 +12,7 @@ export class AppComponent implements OnInit {
   title = 'NgRx';
 
   public pessoas$: Observable<Pessoa>;
-  constructor(private pessoaService: PessoaService) {}
+  constructor(private pessoaService: PessoaService) { }
 
 
   ngOnInit(): void {
@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
   }
 
   public adicionar() {
-
+    this.pessoaService.pessoaAdicionada();
   }
 
 }
